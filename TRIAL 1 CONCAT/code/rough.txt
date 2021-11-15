@@ -1,0 +1,7 @@
+#/home/anindya/Documents/kaggle/Pawpularity/TRIAL 1 CONCAT/Data/train/0a0da090aa9f0342444a7df4dc250c66.jpg
+
+print(next(iter(image_train_loader))[0].shape, next(iter(image_train_loader))[1].shape)
+print(next(iter(image_valid_loader))[0].shape, next(iter(image_valid_loader))[1].shape)
+
+print(next(iter(tabular_train_loader))[0].shape, (next(iter(tabular_train_loader))[1].shape))
+print(next(iter(tabular_train_loader))[0].shape, (next(iter(tabular_train_loader))[1].shape))
