@@ -107,9 +107,9 @@ tabular_data_loaders = {
     'valid' : tabular_valid_loader
 }
 
-image_model = cm.ImageModel()
-tabular_model = cm.TabularModel()
-main_model = cm.ImageTabularModel(image_model, tabular_model)
+image_model = cm.ImageModel().to(device)
+tabular_model = cm.TabularModel().to(device)
+main_model = cm.ImageTabularModel(image_model, tabular_model).to(device)
 
 class RMSELoss(nn.Module):
     def __init__(self, eps=1e-6):

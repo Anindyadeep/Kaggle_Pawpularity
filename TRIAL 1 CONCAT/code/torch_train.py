@@ -94,8 +94,8 @@ class TrainCocatedModel(object):
                     with torch.set_grad_enabled(phase == 'train'):
                         output = self.final_model(X_img, X_tab)
                         loss = self.criterion(output, y)
-                        predictions = output.view(batch_count).tolist()
-                        gdt = y.view(batch_count).tolist()
+                        predictions = output.view(output.size(0)).tolist()
+                        gdt = y.view(y.size(0)).tolist()
                         if self.scaler:
                             predictions = self.scaler.inverse_transform(predictions)
                             gdt = self.scaler.inverse_transform(gdt)
@@ -131,13 +131,13 @@ class TrainCocatedModel(object):
                 
                 if phase == 'train':
                     epoch_train_loss = running_train_loss / len(self.image_data_loaders[phase].dataset)
-                    epoch_train_r2 = running_train_loss / len(batches_till)
+                    epoch_train_r2 = running_train_loss / (batches_till)
                     print()
                     print('{} LOSS: {:.4f} R2 SCORE: {:.4f}'.format(phase, epoch_train_loss, epoch_train_r2))
                 
                 if phase == 'valid':
                     epoch_valid_loss = running_valid_loss / len(self.image_data_loaders[phase].dataset)
-                    epoch_valid_r2 = running_valid_loss / len(batches_till)
+                    epoch_valid_r2 = running_valid_loss / (batches_till)
                     print()
                     print('{} LOSS: {:.4f} R2 SCORE: {:.4f}'.format(phase, epoch_valid_loss, epoch_valid_r2))
                 

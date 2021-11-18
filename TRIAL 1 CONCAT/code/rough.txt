@@ -5,3 +5,4 @@ print(next(iter(image_valid_loader))[0].shape, next(iter(image_valid_loader))[1]
 
 print(next(iter(tabular_train_loader))[0].shape, (next(iter(tabular_train_loader))[1].shape))
 print(next(iter(tabular_train_loader))[0].shape, (next(iter(tabular_train_loader))[1].shape))
+
