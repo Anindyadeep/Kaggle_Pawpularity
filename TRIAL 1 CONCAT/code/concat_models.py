@@ -1,7 +1,32 @@
 import torch 
 import torch.nn as nn
 import torch.nn.functional as F 
+import vit_pytorch as vit
 from torchvision.models import vgg11
+from vit_pytorch.vit import ViT
+
+
+class ViTModel(nn.Module):
+    def __init__(self):
+        super(ViTModel, self).__init__()
+        self.ViT = vit.ViT(
+                image_size = 256,
+                patch_size = 32,
+                num_classes = 64,
+                dim = 1024,
+                depth = 6,
+                heads = 16,
+                mlp_dim = 2048,
+                dropout = 0.1,
+                emb_dropout = 0.1
+            )
+
+        self.linear = nn.Linear(in_features=4096, out_features=1)
+    
+    def forward(self, x):
+        x = self.ViT(x)
+        x = self.linear(x)
+        return x
 
 
 class ImageModel(nn.Module):
@@ -62,4 +87,19 @@ class ImageTabularModel(nn.Module):
         x = self.linear2(x)
         x = self.regressor(x)
         return torch.sigmoid(x)
+        
+
+class ViTTabularModel(nn.Module):
+    def __init__(self, model1, model2):
+        super(ViTTabularModel, self).__init__()
+        self.model1 = model1
+        self.model2 = model2
+        self.linear = nn.Linear(576, 1)
+    
+    def forward(self, x1, x2):
+        x1 = self.model1(x1)
+        x2 = self.model2(x2)
+        x = torch.cat((x1, x2), dim = 1)
+        x = self.linear(x)
+        return F.sigmoid(x)
         

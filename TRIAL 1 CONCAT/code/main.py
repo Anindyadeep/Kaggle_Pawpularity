@@ -135,7 +135,7 @@ train_model_config = tt.TrainCocatedModel(
             optimizer=optimizer,
             schedular=scheduler,
             num_epochs=1,
-            save_check_point_pth='/home/anindya/Documents/kaggle/Pawpularity/TRIAL 1 CONCAT/model',
+            save_check_point_pth= os.path.join(BASE_DIR, 'model'),
             early_stop=2)
 
 main_model = train_model_config.train_model()
