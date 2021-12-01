@@ -14,6 +14,7 @@ warnings.filterwarnings("ignore")
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 bar_format = '{desc:<5.5}{percentage:3.0f}%|{bar:10}{r_bar}'
 
+
 class TrainCocatedModel(object):
     def __init__(self, final_model, image_data_loaders, tabular_data_loaders, scaler, criterion, optimizer, schedular, num_epochs, save_check_point_pth, early_stop):
         """
@@ -168,3 +169,6 @@ class TrainCocatedModel(object):
         self.final_model.load_state_dict(self.best_model_wts)
         return self.final_model
         
+
+
+
